@@ -61,8 +61,8 @@ MovieTime resuelve ese momento puntual: un buscador liviano, sin frameworks, que
 git clone https://github.com/Juanma-Alvarado/MovieTime.git
 cd MovieTime
 
-# Conseguí tu propia API key gratuita en https://www.themoviedb.org/settings/api
-# y pegala en config.js (ver sección Seguridad más abajo)
+# Conseguí tu propia API key gratuita en https://www.themoviedb.org/settings/api,
+# copiá config.example.js como config.js (no se commitea, ver Seguridad) y pegala ahí
 
 # Serví el proyecto con cualquier servidor estático, por ejemplo:
 npx serve .
@@ -83,9 +83,13 @@ npx serve .
 
 ## 🔒 Seguridad
 
-Este proyecto es 100% frontend (sin backend), así que la API key de TMDb es visible para cualquiera que abra las devtools del navegador — TMDb no ofrece restricción de key por dominio (a diferencia de, por ejemplo, Google Maps), así que no hay forma de ocultarla del todo sin agregar un servidor intermedio.
+Este proyecto es 100% frontend (sin backend), así que la API key de TMDb siempre va a ser visible para cualquiera que abra las devtools del navegador — TMDb no ofrece restricción de key por dominio (a diferencia de, por ejemplo, Google Maps), así que no hay forma de ocultarla del todo sin agregar un servidor intermedio.
 
-Por eso vive aislada en `config.js` (separada de la lógica de la app en `main.js`) y se trata como una **key de demo, de solo lectura, regenerable** desde el [dashboard de TMDb](https://www.themoviedb.org/settings/api) sin tocar el resto del código.
+Por eso vive aislada en `config.js`, que:
+
+- **No se commitea** (está en `.gitignore`) — el repo solo tiene `config.example.js` como plantilla.
+- **Se genera en cada deploy de Netlify** a partir de la variable de entorno `TMDB_API_KEY` (ver `netlify.toml`), así que la key nunca queda escrita en el historial de git a futuro.
+- Se trata como una **key de demo, de solo lectura, regenerable** desde el [dashboard de TMDb](https://www.themoviedb.org/settings/api) sin tocar el resto del código.
 
 ## 👤 Autor
 
