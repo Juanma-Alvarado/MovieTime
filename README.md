@@ -40,6 +40,8 @@ Es viernes a la noche y no sabés qué película ver. Abrís cuatro pestañas di
 
 MovieTime resuelve ese momento puntual: un buscador liviano, sin frameworks, que trae el catálogo de populares de [TMDb](https://www.themoviedb.org/documentation/api) y te deja filtrarlo en tiempo real, con paginación y feedback visual inmediato. Lo construí para dominar de punta a punta el consumo de APIs REST, la manipulación del DOM y el manejo de estado sin librerías — la base sobre la que después construí todo lo demás.
 
+Fue uno de mis primeros proyectos como programador, y lo sigo manteniendo tal cual está porque me gusta poder mirar atrás y ver de dónde salí.
+
 ## 🚀 Demo
 
 **[→ movietim.netlify.app](https://movietim.netlify.app/)**
