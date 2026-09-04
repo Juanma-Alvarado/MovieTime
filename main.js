@@ -24,7 +24,7 @@ const cargarPeliculas = async () => {
     try {
         // Obtener los datos de la API y renderizar las cards
         const respuesta = await fetch(
-            `https://api.themoviedb.org/3/movie/popular?api_key=192e0b9821564f26f52949758ea3c473&language=es-MX&page=${pagina}`
+            `https://api.themoviedb.org/3/movie/popular?api_key=${TMDB_API_KEY}&language=es-MX&page=${pagina}`
         );
 
         // Si la respuesta es correcta
