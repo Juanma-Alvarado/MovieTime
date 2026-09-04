@@ -19,6 +19,20 @@ btnAnterior.addEventListener("click", () => {
     }
 });
 
+const mostrarToast = (mensaje, colorFondo) => {
+    Toastify({
+        text: mensaje,
+        duration: 1500,
+        close: true,
+        gravity: "top",
+        position: "right",
+        stopOnFocus: true,
+        style: {
+            background: colorFondo,
+        },
+    }).showToast();
+};
+
 // Dando forma a las cards
 const cargarPeliculas = async () => {
     try {
@@ -46,57 +60,40 @@ const cargarPeliculas = async () => {
             });
 
             document.getElementById("contenedor").innerHTML = peliculas;
-
-            // Agregar un evento de escucha al elemento input
-            buscador.addEventListener("keyup", (e) => {
-                const term = e.target.value.toLowerCase();
-                const cards = document.querySelectorAll(".pelicula");
-
-                // Filtrar las cards que coincidan con el término de búsqueda
-                cards.forEach((card) => {
-                    const title = card
-                        .querySelector(".titulo")
-                        .textContent.toLowerCase();
-
-                    if (title.includes(term)) {
-                        card.style.display = "block";
-                        Toastify({
-                            text: "Resultado",
-                            duration: 900,
-                            destination: "https://github.com/apvarun/toastify-js",
-                            close: true,
-                            gravity: "top",
-                            position: "right",
-                            stopOnFocus: true,
-                            style: {
-                                background: "linear-gradient(to right, #1bc5b1, #03949d)",
-                            },
-                            onClick: function () {},
-                        }).showToast();
-                    } else {
-                        card.style.display = "none";
-                    }
-                });
-            });
         }
 
     } catch (error) {
         console.log(error);
-        Toastify({
-            text: "Error",
-            duration: 900,
-            destination: "https://github.com/apvarun/toastify-js",
-            close: true,
-            gravity: "top",
-            position: "right",
-            stopOnFocus: true,
-            style: {
-                background: "linear-gradient(to right, #1bc5b1, #03949d)",
-            },
-            onClick: function () {},
-        }).showToast();
+        mostrarToast("Error", "linear-gradient(to right, #ff5f6d, #ffc371)");
     }
 };
+
+// Filtrar las cards que coincidan con el término de búsqueda.
+// Se registra una sola vez (no dentro de cargarPeliculas) para no acumular
+// listeners duplicados cada vez que se cambia de página.
+let sinResultadosNotificado = false;
+
+buscador.addEventListener("keyup", (e) => {
+    const term = e.target.value.toLowerCase();
+    const cards = document.querySelectorAll(".pelicula");
+    let coincidencias = 0;
+
+    cards.forEach((card) => {
+        const title = card.querySelector(".titulo").textContent.toLowerCase();
+        const coincide = title.includes(term);
+        card.style.display = coincide ? "block" : "none";
+        if (coincide) coincidencias++;
+    });
+
+    if (coincidencias === 0 && term.length > 0) {
+        if (!sinResultadosNotificado) {
+            mostrarToast("Sin resultados 😕", "linear-gradient(to right, #ff5f6d, #ffc371)");
+            sinResultadosNotificado = true;
+        }
+    } else {
+        sinResultadosNotificado = false;
+    }
+});
 
 cargarPeliculas();
 
