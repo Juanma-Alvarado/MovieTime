@@ -16,7 +16,7 @@ Una SPA liviana en JavaScript puro que consume la API de TMDb para explorar el c
 <br>
 
 <div align="center">
-  <img src="assect/demo.png" alt="Vista previa de MovieTime mostrando el grid de películas populares" width="720">
+  <img src="assets/demo.png" alt="Vista previa de MovieTime mostrando el grid de películas populares" width="720">
 </div>
 
 <br>
